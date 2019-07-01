@@ -1,3 +1,4 @@
+from character import Character
 from hero import Hero
 from goblin import Goblin
 
@@ -40,7 +41,7 @@ def main():
 
         if goblin1.alive():
             # Goblin attacks hero
-            hero1.health -= goblin1.power
+            goblin1.attack(hero1)
             print("The goblin does %d damage to you." % goblin1.power)
             if not hero1.alive():
                 print("You are dead.")

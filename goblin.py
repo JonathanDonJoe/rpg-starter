@@ -1,13 +1,8 @@
-class Goblin():
+from character import Character
+
+class Goblin(Character):
     def __init__(self, health, power):
-        self.health = health
-        self.power = power
-
-    def attack(self, enemy):
-        enemy.health -= self.power
-
-    def alive(self):
-        return self.health > 0
+        super().__init__(health,power) 
 
     def print_status(self):
         print("The goblin has %d health and %d power." % (self.health, self.power))
