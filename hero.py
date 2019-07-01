@@ -4,5 +4,4 @@ class Hero():
         self.power = power
     
     def attack(self, enemy):
-        self.health -= enemy.power
         enemy.health -= self.power
