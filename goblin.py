@@ -8,3 +8,6 @@ class Goblin():
 
     def alive(self):
         return self.health > 0
+
+    def print_status(self):
+        print("The goblin has %d health and %d power." % (self.health, self.power))

@@ -15,8 +15,8 @@ def main():
     goblin1 = Goblin(6,2)
 
     while goblin1.alive() and hero1.alive():
-        print("You have %d health and %d power." % (hero1.health, hero1.power))
-        print("The goblin has %d health and %d power." % (goblin1.health, goblin1.power))
+        hero1.print_status()
+        goblin1.print_status()
         print()
         print("What do you want to do?")
         print("1. fight goblin")

@@ -8,3 +8,6 @@ class Hero():
 
     def alive(self):
         return self.health > 0
+    
+    def print_status(self):
+        print("You have %d health and %d power." % (self.health, self.power))
