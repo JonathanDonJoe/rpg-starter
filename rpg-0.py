@@ -1,4 +1,5 @@
 from character import Character
+from zombie import Zombie
 
 """
 In this simple RPG game, the hero fights the goblin. He has the options to:
@@ -11,14 +12,15 @@ In this simple RPG game, the hero fights the goblin. He has the options to:
 
 def main():
     hero1 = Character("Hero",10, 5)
-    goblin1 = Character("Goblin",6,2)
+    # goblin1 = Character("Goblin",6,2)
+    goblin1 = Zombie()
 
     while goblin1.alive() and hero1.alive():
         hero1.print_status()
         goblin1.print_status()
         print()
         print("What do you want to do?")
-        print("1. fight goblin")
+        print("1. fight %s" % goblin1.name)
         print("2. do nothing")
         print("3. flee")
         print("> ",)
