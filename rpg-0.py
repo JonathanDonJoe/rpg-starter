@@ -1,6 +1,4 @@
 from character import Character
-from hero import Hero
-from goblin import Goblin
 
 """
 In this simple RPG game, the hero fights the goblin. He has the options to:
@@ -12,8 +10,8 @@ In this simple RPG game, the hero fights the goblin. He has the options to:
 """
 
 def main():
-    hero1 = Hero(10, 5)
-    goblin1 = Goblin(6,2)
+    hero1 = Character("Hero",10, 5)
+    goblin1 = Character("Goblin",6,2)
 
     while goblin1.alive() and hero1.alive():
         hero1.print_status()
@@ -27,8 +25,7 @@ def main():
         user_input = input()
         if user_input == "1":
             # Hero attacks goblin
-            goblin1.health -= hero1.power
-            print("You do %d damage to the goblin." % hero1.power)
+            hero1.attack(goblin1)
             if not goblin1.alive():
                 print("The goblin is dead.")
         elif user_input == "2":
@@ -42,7 +39,6 @@ def main():
         if goblin1.alive():
             # Goblin attacks hero
             goblin1.attack(hero1)
-            print("The goblin does %d damage to you." % goblin1.power)
             if not hero1.alive():
                 print("You are dead.")
 
