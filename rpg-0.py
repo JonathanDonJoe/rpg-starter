@@ -1,5 +1,5 @@
-from Hero import Hero
-from Goblin import Goblin
+from hero import Hero
+from goblin import Goblin
 
 """
 In this simple RPG game, the hero fights the goblin. He has the options to:
