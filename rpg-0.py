@@ -14,7 +14,7 @@ def main():
     hero1 = Hero(10, 5)
     goblin1 = Goblin(6,2)
 
-    while goblin1.health > 0 and hero1.health > 0:
+    while goblin1.alive() and hero1.alive():
         print("You have %d health and %d power." % (hero1.health, hero1.power))
         print("The goblin has %d health and %d power." % (goblin1.health, goblin1.power))
         print()
@@ -28,7 +28,7 @@ def main():
             # Hero attacks goblin
             goblin1.health -= hero1.power
             print("You do %d damage to the goblin." % hero1.power)
-            if goblin1.health <= 0:
+            if not goblin1.alive():
                 print("The goblin is dead.")
         elif user_input == "2":
             pass
@@ -38,11 +38,11 @@ def main():
         else:
             print("Invalid input %r" % user_input)
 
-        if goblin1.health > 0:
+        if goblin1.alive():
             # Goblin attacks hero
             hero1.health -= goblin1.power
             print("The goblin does %d damage to you." % goblin1.power)
-            if hero1.health <= 0:
+            if not hero1.alive():
                 print("You are dead.")
 
 main()

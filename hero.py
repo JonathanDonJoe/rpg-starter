@@ -5,3 +5,6 @@ class Hero():
     
     def attack(self, enemy):
         enemy.health -= self.power
+
+    def alive(self):
+        return self.health > 0
