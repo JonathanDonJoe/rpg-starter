@@ -7,7 +7,7 @@ class Character():
         self.job = job
         self.health = health
         self.power = power
-        self.wealth = 100
+        self.wealth = 10
         self.bounty = 1
         self.evasion = 0
         self.armor = 0

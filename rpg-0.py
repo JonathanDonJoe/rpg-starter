@@ -25,7 +25,7 @@ def create_hero():
 
     print("Time to create your character!")
     name = input("What is your character's name?")    
-    job_selection = input("What is your %s's class?\n1. Hero\n2. Medic\n3. Shadow\n4. Wizard\n5. Tank\n6. Drunkard\n:" % name)    
+    job_selection = input("What is your %s's class?\n1. Hero\n2. Medic\n3. Shadow\n4. Wizard\n5. Tank\n6. Drunkard\n: " % name)    
     health = randint(100,150)
     power = (randint(5,10))
     char = Character(name, jobs_dict[job_selection], health, power)
@@ -46,7 +46,7 @@ def main(char1):
         # }
         char_list = ['Hero', 'Medic', 'Shadow', 'Wizard', 'Tank', 'Drunkard', 'Zombie', 'Goblin']
 
-        action = input("Where do you want to go?\n1. Explore\n2. Shop\n3. Use item\n4. Quit\n")
+        action = input("Where do you want to go?\n1. Explore\n2. Shop\n3. Use item\n4. Quit\n: ")
         #Battle
         if action == "1":
             name = choice(char_list)
@@ -70,10 +70,11 @@ def battle(char1, char2):
         char2.print_status()
         print()
         print("What does %s want to do?" % char1.name)
-        print("1. fight %s" % char2.name)
-        print("2. do nothing")
-        print("3. flee")
-        print("> ",)
+        print("1. Fight %s" % char2.name)
+        print("2. Use item")
+        print("3. Do nothing")
+        print("4. Flee")
+        print(": ", end = "")
         user_input = input()
         if user_input == "1":
             # Character 1 attacks Character 2
@@ -82,8 +83,10 @@ def battle(char1, char2):
                 char1.wealth += char2.bounty
                 print("%s is dead. %s gains %d gold and now has %d gold" % (char2.name, char1.name, char2.bounty, char1.wealth))
         elif user_input == "2":
-            pass
+            use_item(char1)
         elif user_input == "3":
+            pass
+        elif user_input == "4":
             print("Goodbye.")
             fighting = False
         else:
@@ -156,28 +159,31 @@ def Store(character):
 
 def use_item(char1):
     # print(char1.inventory)
-    print("What do you want to use?: ")
-    for i,item in enumerate(char1.inventory):
-        print("%d. %s" %(i+1,item))
-    print("0. Quit")
-    #item number they want to use
-    request = int(input(":"))
-    if request == 0:
-        pass
-    elif request <= len(char1.inventory) and request > 0 :
-        if char1.inventory[request-1] == "SuperTonic":
-            char1.health += 10
-            print("%s gained 10 health.  Current health is now %d"%(char1.name, char1.health))
-        elif char1.inventory[request-1] == "Armor":
-            char1.armor += 2
-            print("%s gained 2 armor.  Current armor is now %d"%(char1.name, char1.armor))
-        if char1.inventory[request-1] == "Cloak":
-            char1.evasion += 2
-            print("%s gained 2 evasion.  Current evasion is now %d"%(char1.name, char1.evasion))
-        del char1.inventory[request-1]
-        
-    else:
-        print("Select a valid item.")
+    status = True
+    while status:
+        print("What do you want to use?: ")
+        for i,item in enumerate(char1.inventory):
+            print("%d. %s" %(i+1,item))
+        print("0. Quit")
+        #item number they want to use
+        request = int(input(":"))
+        if request == 0:
+            status = False
+        elif request <= len(char1.inventory) and request > 0 :
+            if char1.inventory[request-1] == "SuperTonic":
+                char1.health += 10
+                print("%s gained 10 health.  Current health is now %d"%(char1.name, char1.health))
+            if char1.inventory[request-1] == "Armor":
+                char1.armor += 2
+                print("%s gained 2 armor.  Current armor is now %d"%(char1.name, char1.armor))
+            if char1.inventory[request-1] == "Cloak":
+                char1.evasion += 2
+                print("%s gained 2 evasion.  Current evasion is now %d"%(char1.name, char1.evasion))
+            del char1.inventory[request-1]
+            status = False
+
+        else:
+            print("Select a valid item.")
 
 
 #Play
