@@ -45,8 +45,12 @@ class Character():
                 dmg = self.power *2 
                 print("%s threw a Critical Hit!" % self.name)
         dmg = int(dmg * enemy.is_hit_factor())
-        enemy.health -= dmg - enemy.armor
-        print("%s does %d damage to the %s." % (self.name, dmg, enemy.name))
+        actual_dmg = dmg - enemy.armor
+        if actual_dmg < 1:
+            actual_dmg = 1
+        enemy.health -= actual_dmg
+
+        print("%s does %d damage to the %s." % (self.name, actual_dmg, enemy.name))
         #20% chance for medic to heal 2 health after being attacked
         if enemy.job.lower() == "medic":
             roll = randint(1,5)
