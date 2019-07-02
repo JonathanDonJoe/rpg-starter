@@ -7,8 +7,11 @@ class Character():
         self.job = job
         self.health = health
         self.power = power
-        self.wealth = 0
+        self.wealth = 100
         self.bounty = 1
+        self.evasion = 0
+        self.armor = 0
+        self.inventory = []
 
         #set bounty for how much gold your death is worth
         if self.job.lower() == 'hero':
@@ -42,7 +45,7 @@ class Character():
                 dmg = self.power *2 
                 print("%s threw a Critical Hit!" % self.name)
         dmg = int(dmg * enemy.is_hit_factor())
-        enemy.health -= dmg
+        enemy.health -= dmg - enemy.armor
         print("%s does %d damage to the %s." % (self.name, dmg, enemy.name))
         #20% chance for medic to heal 2 health after being attacked
         if enemy.job.lower() == "medic":
@@ -72,6 +75,18 @@ class Character():
             else:
                 hit = 0
                 print("%s tripped on his own feet and accidently dodged the attack." %self.name)
+        if self.evasion > 8:
+            new_roll = randint(1,2)
+            if new_roll == 1:
+                hit = 0
+        elif self.evasion > 4:
+            new_roll = randint(1,100)
+            if new_roll <= 15:
+                hit = 0
+        elif self.evasion > 2:
+            new_roll = randint(1,10)
+            if new_roll == 1:
+                hit = 0
         return hit
 
     #print status of character        
