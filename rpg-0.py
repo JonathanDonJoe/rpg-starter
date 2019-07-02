@@ -24,8 +24,8 @@ def create_hero():
     }
 
     print("Time to create your character!")
-    name = input("What is your character's name?")    
-    job_selection = input("What is your %s's class?\n1. Hero\n2. Medic\n3. Shadow\n4. Wizard\n5. Tank\n6. Drunkard\n: " % name)    
+    name = input("What is your character's name?: ")    
+    job_selection = input("What is %s's class?\n1. Hero\n2. Medic\n3. Shadow\n4. Wizard\n5. Tank\n6. Drunkard\n: " % name)    
     health = randint(100,150)
     power = (randint(5,10))
     char = Character(name, jobs_dict[job_selection], health, power)
@@ -47,6 +47,7 @@ def main(char1):
         char_list = ['Hero', 'Medic', 'Shadow', 'Wizard', 'Tank', 'Drunkard', 'Zombie', 'Goblin']
 
         action = input("Where do you want to go?\n1. Explore\n2. Shop\n3. Use item\n4. Quit\n: ")
+        print("")
         #Battle
         if action == "1":
             name = choice(char_list)
@@ -76,6 +77,7 @@ def battle(char1, char2):
         print("4. Flee")
         print(": ", end = "")
         user_input = input()
+        print("")
         if user_input == "1":
             # Character 1 attacks Character 2
             char1.attack(char2)
@@ -116,9 +118,9 @@ def Store(character):
         elif int(item) in [1,2,3] and character.wealth < items_price_dict[item] :
             print("%s can't afford this" % character.name)
             still_shopping = input("Continue shopping?\n1. Yes\n2. No\n: ")
-            if still_shopping.lower() == "n" or still_shopping.lower() == "no" or still_shopping.lower() == "1":
+            if still_shopping.lower() == "n" or still_shopping.lower() == "no" or still_shopping.lower() == "2":
                 shopping = False
-            elif still_shopping.lower() == "y" or still_shopping.lower() == "yes" or still_shopping.lower() == "2":
+            elif still_shopping.lower() == "y" or still_shopping.lower() == "yes" or still_shopping.lower() == "1":
                 pass
             else:
                 print("Invalid input.  Leaving shop.")
@@ -128,6 +130,7 @@ def Store(character):
             character.inventory.append(items_dict[item])
             print("%s bought %s" %(character.name, items_dict[item]))
             still_shopping = input("Continue shopping?\n1. Yes\n2. No\n: ")
+            print("")
             if still_shopping.lower() == "n" or still_shopping.lower() == "no" or still_shopping.lower() == "2":
                 shopping = False
             elif still_shopping.lower() == "y" or still_shopping.lower() == "yes" or still_shopping.lower() == "1":
@@ -138,6 +141,7 @@ def Store(character):
         else:
             print("Invalid input.  Exiting shop. ")
             shopping = False
+        print("")
 
 # class SuperTonic():
 #     def use(self, char):

@@ -47,7 +47,10 @@ class Character():
         dmg = int(dmg * enemy.is_hit_factor())
         actual_dmg = dmg - enemy.armor
         if actual_dmg < 1:
-            actual_dmg = 1
+            if enemy.job.lower() == 'shadow':
+                actual_dmg = 0
+            else:
+                actual_dmg = 1
         enemy.health -= actual_dmg
 
         print("%s does %d damage to the %s." % (self.name, actual_dmg, enemy.name))
