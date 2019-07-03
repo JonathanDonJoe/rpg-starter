@@ -67,7 +67,7 @@ def main(char1):
         #Battle
         if action == "1":
             # name = choice(char_list)
-            job_index = randint(0,5)
+            job_index = randint(0,7)
             # char2 = Character(name,name,randint(30,50), randint(5,7))
             job = char_list[job_index]
             job_selection_dict = {
@@ -76,7 +76,9 @@ def main(char1):
                 "2":Shadow(job, 1, randint(5,7)),
                 "3":Wizard(job, randint(30,50), randint(5,7)),
                 "4":Tank(job, randint(30,50), randint(5,7)),
-                "5":Drunkard(job, randint(30,50), randint(5,7))
+                "5":Drunkard(job, randint(30,50), randint(5,7)),
+                "6":Zombie(job, randint(30,50), randint(1,2)),
+                "7":Goblin(job, randint(30,50), randint(3,5))
             }
             char2 = job_selection_dict[str(job_index)]
 
@@ -134,16 +136,16 @@ def battle(char1, char2):
 def Store(character):
     shopping = True
     while shopping:
-        items_dict = {'1':'SuperTonic', '2':'Armor', '3':'Cloak'}
-        items_price_dict = {'1':5, '2':10, '3':20}
+        items_dict = {'1':'SuperTonic', '2':'Armor', '3':'Cloak', '4':'Sword', '5': 'Broadsword'}
+        items_price_dict = {'1':5, '2':10, '3':20, '4':20, '5':50}
 
         print("%s has %d gold" %(character.name, character.wealth))
 
-        item = input("What do you want to buy?\n1. SuperTonic - 5g\n2. Armor - 10g\n3. Cloak -20g\n4. Quit\n:")
+        item = input("What do you want to buy?\n1. SuperTonic - 5g\n2. Armor - 10g\n3. Cloak -2 0g\n4. Sword - 20g\n5. Broadsword - 50g\n0. Quit\n:")
         print("")
-        if item == '4':
+        if item == '0':
             shopping = False
-        elif int(item) in [1,2,3] and character.wealth < items_price_dict[item] :
+        elif int(item) in [1,2,3,4,5] and character.wealth < items_price_dict[item] :
             print("%s can't afford this" % character.name)
             still_shopping = input("Continue shopping?\n1. Yes\n2. No\n: ")
             if still_shopping.lower() == "n" or still_shopping.lower() == "no" or still_shopping.lower() == "2":
@@ -153,7 +155,7 @@ def Store(character):
             else:
                 print("Invalid input.  Leaving shop.")
                 shopping = False
-        elif int(item) in [1,2,3] and character.wealth >= items_price_dict[item]:
+        elif int(item) in [1,2,3,4,5] and character.wealth >= items_price_dict[item]:
             character.wealth -= items_price_dict[item]
             character.inventory.append(items_dict[item])
             print("%s bought the %s" %(character.name, items_dict[item]))
@@ -208,10 +210,17 @@ def use_item(char1):
                 print("%s gained 10 health from the SuperTonic.  Current health is now %d"%(char1.name, char1.health))
             if char1.inventory[request-1] == "Armor":
                 char1.armor += 2
-                print("%s gained 2 armor by equipping the armor.  Current armor is now %d"%(char1.name, char1.armor))
+                print("%s gained 2 armor by equipping the Armor.  Current armor is now %d"%(char1.name, char1.armor))
             if char1.inventory[request-1] == "Cloak":
                 char1.evasion += 2
-                print("%s gained 2 evasion by equipping the cloak.  Current evasion is now %d"%(char1.name, char1.evasion))
+                print("%s gained 2 evasion by equipping the Cloak.  Current evasion is now %d"%(char1.name, char1.evasion))
+            if char1.inventory[request-1] == "Sword":
+                char1.power += 1
+                print("%s gained 1 power by equipping the Sword.  Current power is now %d"%(char1.name, char1.power))
+            if char1.inventory[request-1] == "Broadsword":
+                char1.power += 2
+                char1.evasion -= 1
+                print("%s gained 2 power, but lost 1 evasion by equipping the Broadsword.  Current power is now %d.  Current evasion is now %d"%(char1.name, char1.power, char1.evasion))                
             del char1.inventory[request-1]
             status = False
 
