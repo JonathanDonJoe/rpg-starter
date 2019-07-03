@@ -1,4 +1,4 @@
-from character import Character
+from character import *
 from random import randint, choice
 
 
@@ -14,21 +14,37 @@ In this simple RPG game, the Character 1 fights the Character 2. He has the opti
 
 def create_hero():
 
-    jobs_dict = {
-        "1":"Hero",
-        "2":"Medic",
-        "3":"Shadow",
-        "4":"Wizard",
-        "5":"Tank",
-        "6":"Drunkard"
-    }
+    # jobs_dict = {
+    #     "1":"Hero",
+    #     "2":"Medic",
+    #     "3":"Shadow",
+    #     "4":"Wizard",
+    #     "5":"Tank",
+    #     "6":"Drunkard"
+    # }
+
 
     print("Time to create your character!")
-    name = input("What is your character's name?: ")    
+    name = input("What is your character's name?: ")   
+    print("") 
     job_selection = input("What is %s's class?\n1. Hero\n2. Medic\n3. Shadow\n4. Wizard\n5. Tank\n6. Drunkard\n: " % name)    
+    print("")
     health = randint(100,150)
     power = (randint(5,10))
-    char = Character(name, jobs_dict[job_selection], health, power)
+
+
+    job_selection_dict = {
+        "1":Hero(name, health, power),
+        "2":Medic(name, health, power),
+        "3":Shadow(name, health, power),
+        "4":Wizard(name, health, power),
+        "5":Tank(name, health, power),
+        "6":Drunkard(name, health, power)
+    }
+
+
+    # char = Character(name, job_selection_dict[job_selection], health, power)
+    char = job_selection_dict[job_selection]
     print("Your character has been created! %s the %s, with starting stats of %d health and %d power" % (name, char.job, char.health, char.power))
     return char
 
@@ -50,8 +66,20 @@ def main(char1):
         print("")
         #Battle
         if action == "1":
-            name = choice(char_list)
-            char2 = Character(name,name,randint(30,50), randint(5,7))
+            # name = choice(char_list)
+            job_index = randint(0,5)
+            # char2 = Character(name,name,randint(30,50), randint(5,7))
+            job = char_list[job_index]
+            job_selection_dict = {
+                "0":Hero(job, randint(30,50), randint(5,7)),
+                "1":Medic(job, randint(30,50), randint(5,7)),
+                "2":Shadow(job, 1, randint(5,7)),
+                "3":Wizard(job, randint(30,50), randint(5,7)),
+                "4":Tank(job, randint(30,50), randint(5,7)),
+                "5":Drunkard(job, randint(30,50), randint(5,7))
+            }
+            char2 = job_selection_dict[str(job_index)]
+
             print("%s encountered a %s!" % (char1.name, char2.name))
             battle(char1, char2)
         elif action == "2":
@@ -83,13 +111,13 @@ def battle(char1, char2):
             char1.attack(char2)
             if not char2.alive():
                 char1.wealth += char2.bounty
-                print("%s is dead. %s gains %d gold and now has %d gold" % (char2.name, char1.name, char2.bounty, char1.wealth))
+                print("%s has died. %s gains %d gold and now has %d gold\n" % (char2.name, char1.name, char2.bounty, char1.wealth))
         elif user_input == "2":
             use_item(char1)
         elif user_input == "3":
-            pass
+            print("%s decided to do nothing.  Why is this even an option?" %char1.name)
         elif user_input == "4":
-            print("Goodbye.")
+            print("%s ran away" % char1.name)
             fighting = False
         else:
             print("Invalid input %r.  %s loses his turn" % (user_input, char1.name))
@@ -100,7 +128,7 @@ def battle(char1, char2):
             if not char1.alive():
                 char2.wealth += char1.bounty
                 print("%s is dead.  %s gains %d gold and now has %d gold" % (char1.name, char2.name, char1.bounty, char2.wealth))
-                print("Game Over")
+                print("Game Over.  Try not dying next time.")
                 exit(0)
 
 def Store(character):
@@ -112,7 +140,7 @@ def Store(character):
         print("%s has %d gold" %(character.name, character.wealth))
 
         item = input("What do you want to buy?\n1. SuperTonic - 5g\n2. Armor - 10g\n3. Cloak -20g\n4. Quit\n:")
-        
+        print("")
         if item == '4':
             shopping = False
         elif int(item) in [1,2,3] and character.wealth < items_price_dict[item] :
@@ -128,7 +156,7 @@ def Store(character):
         elif int(item) in [1,2,3] and character.wealth >= items_price_dict[item]:
             character.wealth -= items_price_dict[item]
             character.inventory.append(items_dict[item])
-            print("%s bought %s" %(character.name, items_dict[item]))
+            print("%s bought the %s" %(character.name, items_dict[item]))
             still_shopping = input("Continue shopping?\n1. Yes\n2. No\n: ")
             print("")
             if still_shopping.lower() == "n" or still_shopping.lower() == "no" or still_shopping.lower() == "2":
@@ -171,18 +199,19 @@ def use_item(char1):
         print("0. Quit")
         #item number they want to use
         request = int(input(":"))
+        print("")
         if request == 0:
             status = False
         elif request <= len(char1.inventory) and request > 0 :
             if char1.inventory[request-1] == "SuperTonic":
                 char1.health += 10
-                print("%s gained 10 health.  Current health is now %d"%(char1.name, char1.health))
+                print("%s gained 10 health from the SuperTonic.  Current health is now %d"%(char1.name, char1.health))
             if char1.inventory[request-1] == "Armor":
                 char1.armor += 2
-                print("%s gained 2 armor.  Current armor is now %d"%(char1.name, char1.armor))
+                print("%s gained 2 armor by equipping the armor.  Current armor is now %d"%(char1.name, char1.armor))
             if char1.inventory[request-1] == "Cloak":
                 char1.evasion += 2
-                print("%s gained 2 evasion.  Current evasion is now %d"%(char1.name, char1.evasion))
+                print("%s gained 2 evasion by equipping the cloak.  Current evasion is now %d"%(char1.name, char1.evasion))
             del char1.inventory[request-1]
             status = False
 

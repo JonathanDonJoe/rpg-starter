@@ -14,26 +14,26 @@ class Character():
         self.inventory = []
 
         #set bounty for how much gold your death is worth
-        if self.job.lower() == 'hero':
-            self.bounty = 10
-        if self.job.lower() == 'medic':
-            self.bounty = 7
-        if self.job.lower() == 'shadow':
-            self.bounty = 6
-        if self.job.lower() == 'tank':
-            self.bounty = 14
-        if self.job.lower() == 'zombie':
-            self.bounty = 0
-        if self.job.lower() == 'goblin':
-            self.bounty = 4
-        if self.job.lower() == 'wizard':
-            self.bounty = 8
-        if self.job.lower() == 'drunkard':
-            self.bounty = 100
+        # if self.job.lower() == 'hero':
+        #     self.bounty = 10
+        # if self.job.lower() == 'medic':
+        #     self.bounty = 7
+        # if self.job.lower() == 'shadow':
+        #     self.bounty = 6
+        # if self.job.lower() == 'tank':
+        #     self.bounty = 14
+        # if self.job.lower() == 'zombie':
+        #     self.bounty = 1
+        # if self.job.lower() == 'goblin':
+        #     self.bounty = 2
+        # if self.job.lower() == 'wizard':
+        #     self.bounty = 8
+        # if self.job.lower() == 'drunkard':
+        #     self.bounty = 100
 
         #Set all shadow's initial health equal to 1
-        if job.lower() == "shadow":
-            self.health = 1
+        # if job.lower() == "shadow":
+        #     self.health = 1
 
     #Character attacks and enemy character
     def attack(self, enemy):
@@ -47,19 +47,19 @@ class Character():
         dmg = int(dmg * enemy.is_hit_factor())
         actual_dmg = dmg - enemy.armor
         if actual_dmg < 1:
-            if enemy.job.lower() == 'shadow':
+            if enemy.job.lower() == 'shadow' or enemy.job.lower() == 'drunkard':
                 actual_dmg = 0
             else:
                 actual_dmg = 1
         enemy.health -= actual_dmg
 
-        print("%s does %d damage to the %s." % (self.name, actual_dmg, enemy.name))
+        print("%s does %d damage to %s." % (self.name, actual_dmg, enemy.name))
         #20% chance for medic to heal 2 health after being attacked
-        if enemy.job.lower() == "medic":
-            roll = randint(1,5)
+        if enemy.job.lower() == "medic" and enemy.alive() == True:
+            roll = randint(1,1)
             if roll == 1:
                 enemy.health += 2
-                print("%s has healed %d health!" % (enemy.name, 2))
+                print("%s healed himself %d health." % (enemy.name, 2))
     
     #10% chance for shadow to get hit
     def is_hit_factor(self):
@@ -107,3 +107,36 @@ class Character():
         if self.job.lower() == 'zombie':
             alive = True
         return alive
+
+class Hero(Character):
+    def __init__(self, name, health, power):
+        super().__init__(name, "Hero", health, power)
+        self.bounty = 10
+class Medic(Character):
+    def __init__(self, name, health, power):
+        super().__init__(name, "Medic", health, power)
+        self.bounty = 7
+class Shadow(Character):
+    def __init__(self, name, health, power):
+        super().__init__(name, "Shadow", 1, power)
+        self.bounty = 6
+class Tank(Character):
+    def __init__(self, name, health, power):
+        super().__init__(name, "Tank", health, power)
+        self.bounty = 14
+class Zombie(Character):
+    def __init__(self, name, health, power):
+        super().__init__(name, "Zombie", health, power)
+        self.bounty = 1
+class Goblin(Character):
+    def __init__(self, name, health, power):
+        super().__init__(name, "Goblin", health, power)
+        self.bounty = 2
+class Wizard(Character):
+    def __init__(self, name, health, power):
+        super().__init__(name, "Wizard", health, power)
+        self.bounty = 8
+class Drunkard(Character):
+    def __init__(self, name, health, power):
+        super().__init__(name, "Drunkard", health, power)
+        self.bounty = 100
