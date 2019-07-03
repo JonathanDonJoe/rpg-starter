@@ -125,7 +125,7 @@ def battle(char1, char2):
         elif user_input == "3":
             print("%s decided to do nothing.  Why is this even an option?" %char1.name)
         elif user_input == "4":
-            print("%s ran away" % char1.name)
+            print("%s ran away like a coward." % char1.name)
             fighting = False
         else:
             print("Invalid input %r.  %s loses his turn" % (user_input, char1.name))
@@ -147,7 +147,7 @@ def Store(character):
 
         print("%s has %d gold" %(character.name, character.wealth))
 
-        item = input("What do you want to buy?\n1. SuperTonic - 5g\n2. Armor - 10g\n3. Cloak -2 0g\n4. Sword - 20g\n5. Broadsword - 50g\n0. Quit\n:")
+        item = input("What do you want to buy?\n1. SuperTonic - 5g\n2. Armor - 10g\n3. Cloak - 20g\n4. Sword - 20g\n5. Broadsword - 50g\n0. Quit\n:")
         print("")
         if item == '0':
             shopping = False
