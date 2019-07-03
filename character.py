@@ -8,28 +8,27 @@ class Character():
         self.health = health
         self.power = power
         self.wealth = 0
-        self.bounty = 1
         self.evasion = 2
         self.armor = 0
         self.inventory = []
 
-        #set bounty for how much gold your death is worth
+        #set wealth for how much gold your death is worth
         # if self.job.lower() == 'hero':
-        #     self.bounty = 10
+        #     self.wealth = 10
         # if self.job.lower() == 'medic':
-        #     self.bounty = 7
+        #     self.wealth = 7
         # if self.job.lower() == 'shadow':
-        #     self.bounty = 6
+        #     self.wealth = 6
         # if self.job.lower() == 'tank':
-        #     self.bounty = 14
+        #     self.wealth = 14
         # if self.job.lower() == 'zombie':
-        #     self.bounty = 1
+        #     self.wealth = 1
         # if self.job.lower() == 'goblin':
-        #     self.bounty = 2
+        #     self.wealth = 2
         # if self.job.lower() == 'wizard':
-        #     self.bounty = 8
+        #     self.wealth = 8
         # if self.job.lower() == 'drunkard':
-        #     self.bounty = 100
+        #     self.wealth = 100
 
         #Set all shadow's initial health equal to 1
         # if job.lower() == "shadow":
@@ -131,17 +130,17 @@ class Character():
 class Hero(Character):
     def __init__(self, name, health, power):
         super().__init__(name, "Hero", health, power)
-        self.bounty = 10
+        self.wealth = 10
 
 class Medic(Character):
     def __init__(self, name, health, power):
         super().__init__(name, "Medic", health, power)
-        self.bounty = 7
+        self.wealth = 7
 
 class Shadow(Character):
     def __init__(self, name, health, power):
         super().__init__(name, "Shadow", 1, power)
-        self.bounty = 6
+        self.wealth = 6
     def is_hit_factor(self):
         hit = 1
         roll = randint(1,10)
@@ -153,7 +152,7 @@ class Shadow(Character):
 class Tank(Character):
     def __init__(self, name, health, power):
         super().__init__(name, "Tank", health, power)
-        self.bounty = 14
+        self.wealth = 14
     def is_hit_factor(self):
         hit = 0.5    
         return hit
@@ -161,22 +160,22 @@ class Tank(Character):
 class Zombie(Character):
     def __init__(self, name, health, power):
         super().__init__(name, "Zombie", health, power)
-        self.bounty = 1
+        self.wealth = 1
 
 class Goblin(Character):
     def __init__(self, name, health, power):
         super().__init__(name, "Goblin", health, power)
-        self.bounty = 2
+        self.wealth = 2
 
 class Wizard(Character):
     def __init__(self, name, health, power):
         super().__init__(name, "Wizard", health, power)
-        self.bounty = 8
+        self.wealth = 8
 
 class Drunkard(Character):
     def __init__(self, name, health, power):
         super().__init__(name, "Drunkard", health, power)
-        self.bounty = 100
+        self.wealth = 40
     def is_hit_factor(self):
         roll = randint(1,2)
         if roll ==1:

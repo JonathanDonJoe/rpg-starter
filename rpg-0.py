@@ -112,8 +112,8 @@ def battle(char1, char2):
             # Character 1 attacks Character 2
             char1.attack(char2)
             if not char2.alive():
-                char1.wealth += char2.bounty
-                print("%s has died. %s gains %d gold and now has %d gold\n" % (char2.name, char1.name, char2.bounty, char1.wealth))
+                char1.wealth += char2.wealth
+                print("%s has died. %s gains %d gold and now has %d gold\n" % (char2.name, char1.name, char2.wealth, char1.wealth))
         elif user_input == "2":
             use_item(char1)
         elif user_input == "3":
@@ -128,8 +128,8 @@ def battle(char1, char2):
             # Character 2 attacks Character 1
             char2.attack(char1)
             if not char1.alive():
-                char2.wealth += char1.bounty
-                print("%s is dead.  %s gains %d gold and now has %d gold" % (char1.name, char2.name, char1.bounty, char2.wealth))
+                char2.wealth += char1.wealth
+                print("%s is dead.  %s gains %d gold and now has %d gold" % (char1.name, char2.name, char1.wealth, char2.wealth))
                 print("Game Over.  Try not dying next time.")
                 exit(0)
 
