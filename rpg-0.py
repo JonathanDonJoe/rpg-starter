@@ -12,6 +12,32 @@ In this simple RPG game, the Character 1 fights the Character 2. He has the opti
 
 """
 
+
+def main(char1):
+
+    in_game = True
+    #Overworld
+    while in_game:
+
+        # action_dict = {
+        #     '1':'Explore',
+        #     '2':'Shop',
+        #     '4':'Quit'
+        # }
+
+        action = input("Where do you want to go?\n1. Explore\n2. Shop\n3. Use item\n4. Quit\n: ")
+        print("")
+        #Battle
+        if action == "1":
+            battle_random(char1)
+        elif action == "2":
+            Store(char1)
+        elif action =="3":
+            use_item(char1)
+        else:
+            in_game = False
+
+
 def create_hero():
 
     # jobs_dict = {
@@ -49,48 +75,28 @@ def create_hero():
     return char
 
 
-def main(char1):
 
-    in_game = True
-    #Overworld
-    while in_game:
 
-        # action_dict = {
-        #     '1':'Explore',
-        #     '2':'Shop',
-        #     '4':'Quit'
-        # }
-        char_list = ['Hero', 'Medic', 'Shadow', 'Wizard', 'Tank', 'Drunkard', 'Zombie', 'Goblin']
+def battle_random(char1):
+    # name = choice(char_list)
+    char_list = ['Hero', 'Medic', 'Shadow', 'Wizard', 'Tank', 'Drunkard', 'Zombie', 'Goblin']
+    job_index = randint(0,7)
+    # char2 = Character(name,name,randint(30,50), randint(5,7))
+    job = char_list[job_index]
+    job_selection_dict = {
+        "0":Hero(job, randint(30,50), randint(5,7)),
+        "1":Medic(job, randint(30,50), randint(5,7)),
+        "2":Shadow(job, 1, randint(5,7)),
+        "3":Wizard(job, randint(30,50), randint(5,7)),
+        "4":Tank(job, randint(30,50), randint(5,7)),
+        "5":Drunkard(job, randint(30,50), randint(5,7)),
+        "6":Zombie(job, randint(30,50), randint(1,2)),
+        "7":Goblin(job, randint(30,50), randint(3,5))
+    }
+    char2 = job_selection_dict[str(job_index)]
 
-        action = input("Where do you want to go?\n1. Explore\n2. Shop\n3. Use item\n4. Quit\n: ")
-        print("")
-        #Battle
-        if action == "1":
-            # name = choice(char_list)
-            job_index = randint(0,7)
-            # char2 = Character(name,name,randint(30,50), randint(5,7))
-            job = char_list[job_index]
-            job_selection_dict = {
-                "0":Hero(job, randint(30,50), randint(5,7)),
-                "1":Medic(job, randint(30,50), randint(5,7)),
-                "2":Shadow(job, 1, randint(5,7)),
-                "3":Wizard(job, randint(30,50), randint(5,7)),
-                "4":Tank(job, randint(30,50), randint(5,7)),
-                "5":Drunkard(job, randint(30,50), randint(5,7)),
-                "6":Zombie(job, randint(30,50), randint(1,2)),
-                "7":Goblin(job, randint(30,50), randint(3,5))
-            }
-            char2 = job_selection_dict[str(job_index)]
-
-            print("%s encountered a %s!" % (char1.name, char2.name))
-            battle(char1, char2)
-        elif action == "2":
-            Store(char1)
-        elif action =="3":
-            use_item(char1)
-        else:
-            in_game = False
-
+    print("%s encountered a %s!" % (char1.name, char2.name))
+    battle(char1, char2)
 
 
 def battle(char1, char2):
@@ -147,27 +153,12 @@ def Store(character):
             shopping = False
         elif int(item) in [1,2,3,4,5] and character.wealth < items_price_dict[item] :
             print("%s can't afford this" % character.name)
-            still_shopping = input("Continue shopping?\n1. Yes\n2. No\n: ")
-            if still_shopping.lower() == "n" or still_shopping.lower() == "no" or still_shopping.lower() == "2":
-                shopping = False
-            elif still_shopping.lower() == "y" or still_shopping.lower() == "yes" or still_shopping.lower() == "1":
-                pass
-            else:
-                print("Invalid input.  Leaving shop.")
-                shopping = False
+            shopping = continue_shopping()
         elif int(item) in [1,2,3,4,5] and character.wealth >= items_price_dict[item]:
             character.wealth -= items_price_dict[item]
             character.inventory.append(items_dict[item])
             print("%s bought the %s" %(character.name, items_dict[item]))
-            still_shopping = input("Continue shopping?\n1. Yes\n2. No\n: ")
-            print("")
-            if still_shopping.lower() == "n" or still_shopping.lower() == "no" or still_shopping.lower() == "2":
-                shopping = False
-            elif still_shopping.lower() == "y" or still_shopping.lower() == "yes" or still_shopping.lower() == "1":
-                pass
-            else:
-                print("Invalid input.  Leaving shop.")
-                shopping = False            
+            shopping = continue_shopping()     
         else:
             print("Invalid input.  Exiting shop. ")
             shopping = False
@@ -189,6 +180,19 @@ def Store(character):
 #         #+2 evade
 #         print("%s equipped Cloak to gain 2 evasion." % char.name)
     
+
+def continue_shopping():
+    shopping = True
+    still_shopping = input("Continue shopping?\n1. Yes\n2. No\n: ")
+    print("")
+    if still_shopping.lower() == "n" or still_shopping.lower() == "no" or still_shopping.lower() == "2":
+        shopping = False
+    elif still_shopping.lower() == "y" or still_shopping.lower() == "yes" or still_shopping.lower() == "1":
+        pass
+    else:
+        print("Invalid input.  Leaving shop.")
+        shopping = False      
+    return shopping  
 
 
 def use_item(char1):
