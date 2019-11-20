@@ -12,28 +12,6 @@ class Character():
         self.armor = 0
         self.inventory = []
 
-        #set wealth for how much gold your death is worth
-        # if self.job.lower() == 'hero':
-        #     self.wealth = 10
-        # if self.job.lower() == 'medic':
-        #     self.wealth = 7
-        # if self.job.lower() == 'shadow':
-        #     self.wealth = 6
-        # if self.job.lower() == 'tank':
-        #     self.wealth = 14
-        # if self.job.lower() == 'zombie':
-        #     self.wealth = 1
-        # if self.job.lower() == 'goblin':
-        #     self.wealth = 2
-        # if self.job.lower() == 'wizard':
-        #     self.wealth = 8
-        # if self.job.lower() == 'drunkard':
-        #     self.wealth = 100
-
-        #Set all shadow's initial health equal to 1
-        # if job.lower() == "shadow":
-        #     self.health = 1
-
     #Character attacks and enemy character
     def attack(self, enemy):
         dmg = self.power
@@ -63,38 +41,7 @@ class Character():
     
     #10% chance for shadow to get hit
     def is_hit_factor(self):
-        hit = 1
-        # roll = 10
-        # if self.job.lower() == 'shadow':
-        #     roll = randint(1,10)
-        #     if roll >1:
-        #         hit = 0
-        #         print("%s dodged the hit!" % self.name)
-        #Tanks take half damage, rounded up
-        # if self.job.lower() == 'tank':
-        #     hit = 0.5
-        #Drunkard has an equal chance to take no damage and double damage
-        # if self.job.lower() == 'drunkard':
-        #     roll = randint(1,2)
-        #     if roll ==1:
-        #         hit = 2
-        #         print("%s didn't even notice he was getting attacked, so he got hit twice." %self.name)
-        #     else:
-        #         hit = 0
-        #         print("%s tripped on his own feet and accidently dodged the attack." %self.name)
-        # if self.evasion >= 8:
-        #     new_roll = randint(1,2)
-        #     if new_roll == 1:
-        #         hit = 0
-        # elif self.evasion >= 4:
-        #     new_roll = randint(1,100)
-        #     if new_roll <= 15:
-        #         hit = 0
-        # elif self.evasion >= 2:
-        #     new_roll = randint(1,10)
-        #     if new_roll == 1:
-        #         hit = 0
-        return hit
+        return 1
     
     #evasion factor
     def evade_chance(self):
